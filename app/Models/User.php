@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'mobile_no',
+        'stripe_id',
+        'stripe_payouts_enabled',
+        'card_brand',
+        'card_last_four'
     ];
 
     /**
