@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('category.list');
+    Route::get('/category-add', [CategoryController::class, 'addCatogory'])->name('category.add');
+    Route::post('/category-add', [CategoryController::class, 'store'])->name('category.store');
+
+    Route::get('/products', [ProductController::class, 'index'])->name('items.list');
+    Route::get('/product-add', [ProductController::class, 'addItem'])->name('items.add');
+    Route::post('/product-add', [ProductController::class, 'store'])->name('items.store');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
