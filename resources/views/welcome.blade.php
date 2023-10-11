@@ -542,34 +542,34 @@
 
           <ul class="grid-list">
 
-            <li>
+            @foreach($items as $item)
+          <li>
               <div class="menu-card hover:card">
-
                 <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-1.png" width="100" height="100" loading="lazy" alt="Greek Salad"
+                  <img src="{{ $item->image }}" width="100" height="100" loading="lazy" alt="{{ $item->name }}"
                     class="img-cover">
                 </figure>
 
                 <div>
-
                   <div class="title-wrapper">
                     <h3 class="title-3">
-                      <a href="#" class="card-title">Greek Salad</a>
+                      <a href="#" class="card-title">{{ $item->name }}</a>
                     </h3>
 
-                    <span class="badge label-1">Seasonal</span>
+                    <span class="badge label-1">  </span>
 
-                    <span class="span title-2">$25.50</span>
+                    <span class="span title-2">{{ $item->price }}</span>
                   </div>
 
                   <p class="card-text label-1">
-                    Tomatoes, green bell pepper, sliced cucumber onion, olives, and feta cheese.
+                  {{ $item->description }}
                   </p>
 
                 </div>
-
+                
               </div>
             </li>
+            @endforeach
 
             <li>
               <div class="menu-card hover:card">
@@ -598,7 +598,7 @@
               </div>
             </li>
 
-            <li>
+            <!-- <li>
               <div class="menu-card hover:card">
 
                 <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
@@ -706,7 +706,7 @@
                 </div>
 
               </div>
-            </li>
+            </li> -->
             <li>
                 <!-- This is black because of set the 'Explore more dishes button' -->
             </li>

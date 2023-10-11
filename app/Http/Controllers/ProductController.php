@@ -43,7 +43,7 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'category_id' => $request->category,
                 'image' => $request->image,
-                'deescription' => $request->description
+                'description' => $request->description
             ]);
 
             $items = Items::get();

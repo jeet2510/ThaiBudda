@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'isAdmin',
         'mobile_no',
         'stripe_id',
         'stripe_payouts_enabled',
@@ -47,4 +48,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function isAdmin()
+    {
+        return $this->isAdmin === 1; // Assuming you have a 'role' column in your users table
+    }
 }
