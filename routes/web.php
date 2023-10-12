@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomePageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,15 +20,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+
+Route::get('/', [HomePageController::class, 'welcome'])->name('welcome');
 Route::get('/itemlist', [MenuItemController::class, 'index'])->name('itemlist');
+Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

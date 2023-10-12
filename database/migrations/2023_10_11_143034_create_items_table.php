@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price');
             $table->boolean('status')->default(1);
+            $table->boolean('on_homepage')->default(0);
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->string('tag')->nullable();
