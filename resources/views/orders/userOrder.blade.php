@@ -12,8 +12,11 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
+                           <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Order ID
+                            </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Item ID
+                                Item Name
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Order Status
@@ -33,7 +36,10 @@
                         @foreach($orders as $order)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $order->item_id }}
+                                {{ $order->order_id }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {{ $order->item_name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{ $order->order_status }}

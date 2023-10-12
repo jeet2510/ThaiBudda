@@ -28,7 +28,7 @@
                                 Service Detail
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Item ID
+                                Item Name
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Payment Amount
@@ -57,7 +57,7 @@
                                 {{ $order->service_detail }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $order->item_id }}
+                                {{ $order->item_name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{ $order->payment_amount }}
