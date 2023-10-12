@@ -28,7 +28,7 @@ Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dash
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified','admin'])->name('dashboard');
+})->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,5 +46,7 @@ Route::middleware('auth')->group(function () {
 
 // Stripe webhooks
 Route::post('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);
+
+Route::post('/book-table', [HomePageController::class, 'bookTable'])->name('book-table');
 
 require __DIR__ . '/auth.php';
