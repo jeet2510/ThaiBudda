@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/product-add', [ProductController::class, 'addItem'])->name('items.add');
     Route::post('/product-add', [ProductController::class, 'store'])->name('items.store');
 });
+
+// Stripe webhooks
+Route::post('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);
 
 require __DIR__ . '/auth.php';
