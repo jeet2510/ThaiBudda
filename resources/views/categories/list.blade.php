@@ -34,9 +34,8 @@
                                     <td class="py-2">{{ $item->name }}</td>
                                     <td class="py-2">
                                         <div class="flex justify-center items-center gap-2">
-
-                                            <a href="/edit-product/{{ $item->id }}"><button
-                                                    class="border p-1.5 rounded-lg hover:bg-indigo-200"><img
+                                        <a href="/edit-category/{{ $item->id }}">
+                                            <button class="border p-1.5 rounded-lg hover:bg-indigo-200"><img
                                                         src="Icons/edit.svg" alt=""></button></a>
                                             <form id="deleteform" action="deleteProduct/{{ $item->id }}"
                                                 method="POST">

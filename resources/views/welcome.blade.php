@@ -546,7 +546,7 @@
           <li>
               <div class="menu-card hover:card">
                 <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="{{ $item->image }}" width="100" height="100" loading="lazy" alt="{{ $item->name }}"
+                  <img src=".{{ $item->image }}" width="100" height="100" loading="lazy" alt="{{ $item->name }}"
                     class="img-cover">
                 </figure>
 
@@ -723,7 +723,7 @@
             During winter daily from <span class="span">7:00 pm</span> to <span class="span">9:00 pm</span>
           </p>
 
-       =
+
 
           <img src="./images/shape-5.png" width="921" height="1036" loading="lazy" alt="shape"
             class="shape shape-2 move-anim">
@@ -742,7 +742,7 @@
       -->
 
      <!-- <section class="section testi text-center has-bg-image"
-        style="background-image: url('./assets/images/testimonial-bg.jpg')" aria-label="testimonials">
+        style="background-image: url('./images/testimonial-bg.jpg')" aria-label="testimonials">
         <div class="container">
 
           <div class="quote">”</div>
@@ -858,7 +858,7 @@
 
             </form>
 
-            <div class="form-right text-center" style="background-image: url('./assets/images/form-pattern.png')">
+            <div class="form-right text-center" style="background-image: url('./images/form-pattern.png')">
 
               <h2 class="headline-1 text-center">Contact Us</h2>
 
@@ -1081,7 +1081,7 @@
   -->
 
   <footer class="footer section has-bg-image text-center"
-    style="background-image: url('./assets/images/footer-bg.jpg')">
+    style="background-image: url('./images/footer-bg.jpg')">
     <div class="container">
 
       <div class="footer-top grid-list">
