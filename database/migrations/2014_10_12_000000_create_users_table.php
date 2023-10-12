@@ -18,10 +18,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('mobile_no')->nullable();
-            $table->string('stripe_id')->nullable();
             $table->string('stripe_payouts_enabled')->nullable();
             $table->string('card_brand')->nullable();
             $table->string('card_last_four')->nullable();
+            $table->boolean('isAdmin')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
