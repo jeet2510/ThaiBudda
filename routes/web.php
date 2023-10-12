@@ -36,12 +36,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('category.list');
+    Route::get('/edit-category/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/edit-category/{id}', [CategoryController::class, 'update'])->name('category.edit');
     Route::get('/category-add', [CategoryController::class, 'addCatogory'])->name('category.add');
     Route::post('/category-add', [CategoryController::class, 'store'])->name('category.store');
 
     Route::get('/products', [ProductController::class, 'index'])->name('items.list');
     Route::get('/product-add', [ProductController::class, 'addItem'])->name('items.add');
     Route::post('/product-add', [ProductController::class, 'store'])->name('items.store');
+
+    Route::get('/edit-product/{item}', [ProductController::class, 'edit'])->name('items.edit');
+    Route::put('/items/{item}', [ProductController::class, 'update'])->name('items.update');
+    Route::get('/items/{item}', 'ItemController@show')->name('items.show');
+    Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
+
+
+
 });
 
 // Stripe webhooks

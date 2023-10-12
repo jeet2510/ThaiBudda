@@ -560,7 +560,7 @@
                                                 <a href="#" class="card-title">{{ $item->name }}</a>
                                             </h3>
 
-                                            <span class="badge label-1"> </span>
+                                            <span class="badge label-1">{{ $item->tag }}</span>
 
                                             <span class="span title-2">{{ $item->price }}</span>
                                         </div>
@@ -747,7 +747,7 @@
       -->
 
             <!-- <section class="section testi text-center has-bg-image"
-        style="background-image: url('./assets/images/testimonial-bg.jpg')" aria-label="testimonials">
+        style="background-image: url('./images/testimonial-bg.jpg')" aria-label="testimonials">
         <div class="container">
 
           <div class="quote">”</div>
@@ -904,6 +904,86 @@
                         </div>
 
                     </div>
+
+                </div>
+
+                <div class="icon-wrapper">
+                    <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
+
+                    <input type="date" name="reservation-date" class="input-field">
+
+                    <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
+                </div>
+
+                <div class="icon-wrapper">
+                    <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                    <select name="person" class="input-field">
+                        <option value="08:00am">08 : 00 am</option>
+                        <option value="09:00am">09 : 00 am</option>
+                        <option value="010:00am">10 : 00 am</option>
+                        <option value="011:00am">11 : 00 am</option>
+                        <option value="012:00am">12 : 00 am</option>
+                        <option value="01:00pm">01 : 00 pm</option>
+                        <option value="02:00pm">02 : 00 pm</option>
+                        <option value="03:00pm">03 : 00 pm</option>
+                        <option value="04:00pm">04 : 00 pm</option>
+                        <option value="05:00pm">05 : 00 pm</option>
+                        <option value="06:00pm">06 : 00 pm</option>
+                        <option value="07:00pm">07 : 00 pm</option>
+                        <option value="08:00pm">08 : 00 pm</option>
+                        <option value="09:00pm">09 : 00 pm</option>
+                        <option value="10:00pm">10 : 00 pm</option>
+                    </select>
+
+                    <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
+                </div>
+
+                </div>
+
+                <textarea name="message" placeholder="Message" autocomplete="off" class="input-field"></textarea>
+
+                <button type="submit" class="btn btn-secondary">
+                    <span class="text text-1">Book A Table</span>
+
+                    <span class="text text-2" aria-hidden="true">Book A Table</span>
+                </button>
+
+                </form>
+
+                <div class="form-right text-center" style="background-image: url('./images/form-pattern.png')">
+
+                    <h2 class="headline-1 text-center">Contact Us</h2>
+
+                    <p class="contact-label">Booking Request</p>
+
+                    <a href="tel:+61 472 728 989" class="body-1 contact-number hover-underline">+61 472 728 989</a>
+
+                    <div class="separator"></div>
+
+                    <p class="contact-label">Location</p>
+
+                    <address class="body-4">
+                        1/35 William St, Bathurst NSW 2795, Australia
+                    </address>
+
+                    <p class="contact-label">Lunch Time</p>
+
+                    <p class="body-4">
+                        Monday to Sunday <br>
+                        11.00 am - 2.30pm
+                    </p>
+
+                    <p class="contact-label">Dinner Time</p>
+
+                    <p class="body-4">
+                        Monday to Sunday <br>
+                        05.00 pm - 10.00pm
+                    </p>
+
+                </div>
+
+                </div>
 
                 </div>
             </section>
@@ -1098,7 +1178,7 @@
   -->
 
             <footer class="footer section has-bg-image text-center"
-                style="background-image: url('./assets/images/footer-bg.jpg')">
+                style="background-image: url('./images/footer-bg.jpg')">
                 <div class="container">
 
                     <div class="footer-top grid-list">

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Items;
 use App\Notifications\BookTable;
 use Exception;
+use Illuminate\Support\Str;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
@@ -14,7 +16,12 @@ class HomePageController extends Controller
 {
     public function welcome()
     {
-        $items = Items::select('name', 'price', 'description', 'image')->get();
+        $items = Items::select('name', 'price', 'description', 'image', 'tag')
+                        ->where('on_homepage','=',1)
+                        ->get();
+        $items->each(function($item) {
+            $item->image = Str::after($item->image, 'storage');
+        });
         // dd($items);
         return view('welcome', compact('items'));
     }

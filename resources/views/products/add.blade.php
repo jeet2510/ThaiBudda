@@ -7,7 +7,7 @@
 
     <div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
         <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-            <form method="POST" action="{{ route('items.store') }}">
+            <form method="POST" action="{{ route('items.store') }}"  enctype="multipart/form-data">
                 @csrf
                 <!-- Name -->
                 <div>
@@ -55,6 +55,15 @@
 
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
+                <div class="mt-4">
+                    <x-input-label for="tag" :value="__('Tag')" />
+
+                    <x-text-input id="tag" class="block mt-1 w-full" type="text" name="tag" required
+                        autocomplete="tag" />
+
+                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                </div>
+
 
                 <div class="mt-4">
                     <x-input-label for="description" :value="__('Description')" />
@@ -65,6 +74,17 @@
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
 
+                <div class="mt-4">
+                    <x-input-label for="on_homepage" :value="__('On Homepage')" />
+                    
+                    <select id="on_homepage" class="block mt-1 w-full" name="on_homepage" required autocomplete="on_homepage">
+                        <option value="0">Inactive</option>
+                        <option value="1">Active</option>
+                    </select>
+                    
+                    <x-input-error :messages="$errors->get('on_homepage')" class="mt-2" />
+                </div>
+                
                 <div class="flex items-center justify-end mt-4">
                     <x-primary-button class="ml-4">
                         {{ __('Submit') }}

@@ -30,7 +30,7 @@
                         @if (count($items) > 0)
                             @foreach ($items as $item)
                                 <tr class="">
-                                    <td class="py-2"><img class="flex mx-auto w-20" src={{ $item->image }}
+                                    <td class="py-2"><img class="flex mx-auto w-20" src="{{ $item->image }}"
                                             alt="" onerror="this.onerror=null;this.src='/images/event-1.jpg'">
                                     </td>
                                     <td class="py-2">{{ $item->name }}</td>
