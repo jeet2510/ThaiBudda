@@ -41,6 +41,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('items.list');
     Route::get('/product-add', [ProductController::class, 'addItem'])->name('items.add');
     Route::post('/product-add', [ProductController::class, 'store'])->name('items.store');
+
+    Route::get('/edit-product/{item}', [ProductController::class, 'edit'])->name('items.edit');
+    Route::put('/items/{item}', [ProductController::class, 'update'])->name('items.update');
+    Route::get('/items/{item}', 'ItemController@show')->name('items.show');
+    Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
+
+
+
 });
 
 require __DIR__ . '/auth.php';

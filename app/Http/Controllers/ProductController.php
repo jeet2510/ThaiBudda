@@ -34,16 +34,24 @@ class ProductController extends Controller
         try {
             $request->validate([
                 'name' => ['required'],
-                'image' => ['required'],
-                'category' => ['required']
+                'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'], // Add image validation rules
+                'category' => ['required'],
             ]);
+
+            // Handle file upload
+            $imagePath = $request->file('image')->store('public/images'); // Save to storage
+
+            // Get the URL for the saved image
+            $imageUrl = asset(str_replace('public', 'storage', $imagePath));
 
             $addItem = Items::create([
                 'name' => $request->name,
                 'price' => $request->price,
                 'category_id' => $request->category,
-                'image' => $request->image,
-                'description' => $request->description
+                'on_homepage' => $request->on_homepage,
+                'tag' => $request->tag,
+                'image' => $imageUrl, // Save the image URL in the database
+                'description' => $request->description,
             ]);
 
             $items = Items::get();
@@ -53,4 +61,56 @@ class ProductController extends Controller
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
         }
     }
+
+    public function edit($id)
+    {
+        try {
+            $item = Items::find($id);
+            $categories = Categories::get();
+            // dd($item);
+            return view('products.edit', ['item' => $item, 'categories' => $categories]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'name' => ['required'],
+                'image' => ['required']
+            ]);
+
+            $item = Items::find($id);
+            $item->name = $request->name;
+            $item->price = $request->price;
+            $item->image = $request->image;
+            $item->tag = $request->tag;
+            $item->description = $request->description;
+            $item->save();
+
+            $items = Items::get();
+            return view('products.list', ['items' => $items]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $item = Items::find($id);
+            $item->delete();
+
+            $items = Items::get();
+            return view('products.list', ['items' => $items]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
+    }
+
 }

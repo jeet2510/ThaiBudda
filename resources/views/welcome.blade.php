@@ -556,7 +556,7 @@
                       <a href="#" class="card-title">{{ $item->name }}</a>
                     </h3>
 
-                    <span class="badge label-1">  </span>
+                    <span class="badge label-1">{{ $item->tag }}</span>
 
                     <span class="span title-2">{{ $item->price }}</span>
                   </div>

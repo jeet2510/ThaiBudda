@@ -14,6 +14,7 @@ class Items extends Model
         'category_id',
         'status',
         'description',
+        'on_homepage',
         'price',
         'image',
         'tag',

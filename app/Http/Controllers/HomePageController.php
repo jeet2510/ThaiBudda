@@ -9,7 +9,7 @@ class HomePageController extends Controller
 {
     public function welcome()
     {
-        $items = Items::select('name', 'price', 'description', 'image')->get();
+        $items = Items::select('name', 'price', 'description', 'image', 'tag')->get();
         // dd($items);
         return view('welcome', compact('items'));
     }
