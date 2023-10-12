@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\OrdersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +38,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('category.list');
     Route::get('/edit-category/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::post('/edit-category/{id}', [CategoryController::class, 'update'])->name('category.edit');
+    Route::post('/edit-category/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::get('/category-add', [CategoryController::class, 'addCatogory'])->name('category.add');
     Route::post('/category-add', [CategoryController::class, 'store'])->name('category.store');
 
@@ -50,7 +51,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/items/{item}', 'ItemController@show')->name('items.show');
     Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
 
-
+    Route::get('order/create', [OrdersController::class, 'create'])->name('order.create');
+    Route::post('add-card', [UserController::class, 'addCardDetails'])->name('card.add');
+    Route::post('success', [UserController::class, 'orderSuccess'])->name('order.success');
+    Route::post('cancel', [UserController::class, 'orderCancel'])->name('order.cancel');
 
 });
 

@@ -55,7 +55,7 @@ class ProductController extends Controller
             ]);
 
             $items = Items::get();
-            return view('products.list', ['items' => $items]);
+            return redirect()->route('items.list');
         } catch (Exception $e) {
             Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
@@ -92,7 +92,7 @@ class ProductController extends Controller
             $item->save();
 
             $items = Items::get();
-            return view('products.list', ['items' => $items]);
+            return redirect()->route('items.list');
         } catch (Exception $e) {
             Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);

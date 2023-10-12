@@ -550,8 +550,8 @@
                             <li>
                                 <div class="menu-card hover:card">
                                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                                        <img src="{{ $item->image }}" width="100" height="100" loading="lazy"
-                                            alt="{{ $item->name }}" class="img-cover">
+                                        <img src="{{ asset('storage' . $item->image) }}" width="100"
+                                            height="100" loading="lazy" alt="{{ $item->name }}" class="">
                                     </figure>
 
                                     <div>
@@ -562,15 +562,22 @@
 
                                             <span class="badge label-1">{{ $item->tag }}</span>
 
-                                            <span class="span title-2">{{ $item->price }}</span>
+                                            <span class="span title-2">${{ $item->price }}</span>
                                         </div>
 
                                         <p class="card-text label-1">
                                             {{ $item->description }}
                                         </p>
 
-                                    </div>
+                                        <div>
+                                            <a href="{{ route('order.create'), $item->name }}">
+                                                <button>
+                                                    Book a table
+                                                </button>
+                                            </a>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </li>
                         @endforeach
@@ -728,7 +735,7 @@
                             pm</span>
                     </p>
 
-                    =
+
 
                     <img src="./images/shape-5.png" width="921" height="1036" loading="lazy" alt="shape"
                         class="shape shape-2 move-anim">
@@ -786,8 +793,8 @@
 
                     <div class="form reservation-form bg-black-10">
 
-                        <form action="{{ route('book-table') }}" method="POST" class="form-left">
-                            @csrf
+                        <form action="" class="form-left">
+
                             <h2 class="headline-1 text-center">Online Reservation</h2>
 
                             <p class="form-text text-center">
@@ -797,14 +804,10 @@
 
                             <div class="input-wrapper">
                                 <input type="text" name="name" placeholder="Your Name" autocomplete="off"
-                                    class="input-field" required>
+                                    class="input-field">
 
                                 <input type="tel" name="phone" placeholder="Phone Number" autocomplete="off"
                                     class="input-field">
-
-                                <input type="email" required name="email_address" placeholder="Your email"
-                                    autocomplete="off" class="input-field">
-
                             </div>
 
                             <div class="input-wrapper">
@@ -812,14 +815,14 @@
                                 <div class="icon-wrapper">
                                     <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
 
-                                    <select name="person" class="input-field" required>
-                                        <option value="1">1 Person</option>
-                                        <option value="2">2 Person</option>
-                                        <option value="3">3 Person</option>
-                                        <option value="4">4 Person</option>
-                                        <option value="5">5 Person</option>
-                                        <option value="6">6 Person</option>
-                                        <option value="7">7 Person</option>
+                                    <select name="person" class="input-field">
+                                        <option value="1-person">1 Person</option>
+                                        <option value="2-person">2 Person</option>
+                                        <option value="3-person">3 Person</option>
+                                        <option value="4-person">4 Person</option>
+                                        <option value="5-person">5 Person</option>
+                                        <option value="6-person">6 Person</option>
+                                        <option value="7-person">7 Person</option>
                                     </select>
 
                                     <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
@@ -828,7 +831,7 @@
                                 <div class="icon-wrapper">
                                     <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
 
-                                    <input type="date" name="reservation-date" class="input-field" required>
+                                    <input type="date" name="reservation-date" class="input-field">
 
                                     <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
                                 </div>
@@ -836,7 +839,7 @@
                                 <div class="icon-wrapper">
                                     <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
 
-                                    <select name="time" class="input-field" required>
+                                    <select name="person" class="input-field">
                                         <option value="08:00am">08 : 00 am</option>
                                         <option value="09:00am">09 : 00 am</option>
                                         <option value="010:00am">10 : 00 am</option>
@@ -870,7 +873,7 @@
                         </form>
 
                         <div class="form-right text-center"
-                            style="background-image: url('./assets/images/form-pattern.png')">
+                            style="background-image: url('./images/form-pattern.png')">
 
                             <h2 class="headline-1 text-center">Contact Us</h2>
 
@@ -904,86 +907,6 @@
                         </div>
 
                     </div>
-
-                </div>
-
-                <div class="icon-wrapper">
-                    <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
-
-                    <input type="date" name="reservation-date" class="input-field">
-
-                    <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
-                </div>
-
-                <div class="icon-wrapper">
-                    <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
-
-                    <select name="person" class="input-field">
-                        <option value="08:00am">08 : 00 am</option>
-                        <option value="09:00am">09 : 00 am</option>
-                        <option value="010:00am">10 : 00 am</option>
-                        <option value="011:00am">11 : 00 am</option>
-                        <option value="012:00am">12 : 00 am</option>
-                        <option value="01:00pm">01 : 00 pm</option>
-                        <option value="02:00pm">02 : 00 pm</option>
-                        <option value="03:00pm">03 : 00 pm</option>
-                        <option value="04:00pm">04 : 00 pm</option>
-                        <option value="05:00pm">05 : 00 pm</option>
-                        <option value="06:00pm">06 : 00 pm</option>
-                        <option value="07:00pm">07 : 00 pm</option>
-                        <option value="08:00pm">08 : 00 pm</option>
-                        <option value="09:00pm">09 : 00 pm</option>
-                        <option value="10:00pm">10 : 00 pm</option>
-                    </select>
-
-                    <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
-                </div>
-
-                </div>
-
-                <textarea name="message" placeholder="Message" autocomplete="off" class="input-field"></textarea>
-
-                <button type="submit" class="btn btn-secondary">
-                    <span class="text text-1">Book A Table</span>
-
-                    <span class="text text-2" aria-hidden="true">Book A Table</span>
-                </button>
-
-                </form>
-
-                <div class="form-right text-center" style="background-image: url('./images/form-pattern.png')">
-
-                    <h2 class="headline-1 text-center">Contact Us</h2>
-
-                    <p class="contact-label">Booking Request</p>
-
-                    <a href="tel:+61 472 728 989" class="body-1 contact-number hover-underline">+61 472 728 989</a>
-
-                    <div class="separator"></div>
-
-                    <p class="contact-label">Location</p>
-
-                    <address class="body-4">
-                        1/35 William St, Bathurst NSW 2795, Australia
-                    </address>
-
-                    <p class="contact-label">Lunch Time</p>
-
-                    <p class="body-4">
-                        Monday to Sunday <br>
-                        11.00 am - 2.30pm
-                    </p>
-
-                    <p class="contact-label">Dinner Time</p>
-
-                    <p class="body-4">
-                        Monday to Sunday <br>
-                        05.00 pm - 10.00pm
-                    </p>
-
-                </div>
-
-                </div>
 
                 </div>
             </section>
@@ -1216,11 +1139,11 @@
                                 Subscribe us & Get <span class="span">25% Off.</span>
                             </p>
 
-                            <form class="input-wrapper">
+                            <form action="" class="input-wrapper">
                                 <div class="icon-wrapper">
                                     <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
 
-                                    <input type="email" required name="email_address" placeholder="Your email"
+                                    <input type="email" name="email_address" placeholder="Your email"
                                         autocomplete="off" class="input-field">
                                 </div>
 

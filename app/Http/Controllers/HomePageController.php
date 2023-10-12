@@ -16,12 +16,15 @@ class HomePageController extends Controller
 {
     public function welcome()
     {
-        $items = Items::select('name', 'price', 'description', 'image', 'tag')
-                        ->where('on_homepage','=',1)
-                        ->get();
-        $items->each(function($item) {
-            $item->image = Str::after($item->image, 'storage');
-        });
+        // dd('ok');
+        $items = Items::where('on_homepage', '=', 1)
+            ->get();
+        if (count($items) > 0) {
+            $items->each(function ($item) {
+                $item->image = Str::after($item->image, 'storage');
+            });
+        }
+        // dd('ok');
         // dd($items);
         return view('welcome', compact('items'));
     }

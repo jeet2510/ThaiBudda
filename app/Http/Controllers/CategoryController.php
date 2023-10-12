@@ -40,7 +40,7 @@ class CategoryController extends Controller
             ]);
 
             $items = Categories::get();
-            return view('categories.list', ['items' => $items]);
+            return redirect()->route('category.list');
         } catch (Exception $e) {
             Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
@@ -75,7 +75,7 @@ class CategoryController extends Controller
 
             $Category = Categories::get();
             // dd($Category);
-            return view('categories.list', ['items' => $Category]);
+            return redirect()->route('category.list');
         } catch (Exception $e) {
             Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
