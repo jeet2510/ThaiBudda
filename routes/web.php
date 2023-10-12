@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,7 +43,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('items.list');
     Route::get('/product-add', [ProductController::class, 'addItem'])->name('items.add');
     Route::post('/product-add', [ProductController::class, 'store'])->name('items.store');
-});
+
+    // Orders
+    Route::post('/order/store', 'OrderController@store');
+    // List Orders
+    Route::get('/order/list', [OrderController::class, 'index'])->name('allOrders');
+    Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders']);
+    });
 
 // Stripe webhooks
 Route::post('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);
