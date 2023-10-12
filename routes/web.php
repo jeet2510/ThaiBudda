@@ -7,7 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomePageController;
-use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,12 +51,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/items/{item}', 'ItemController@show')->name('items.show');
     Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
 
-    Route::get('order/create', [OrdersController::class, 'create'])->name('order.create');
+    Route::get('order/create', [OrderController::class, 'create'])->name('order.create');
     Route::post('add-card', [UserController::class, 'addCardDetails'])->name('card.add');
     Route::post('success', [UserController::class, 'orderSuccess'])->name('order.success');
     Route::post('cancel', [UserController::class, 'orderCancel'])->name('order.cancel');
 
 });
+    // Orders
+    Route::post('/order/store', 'OrderController@store');
+    // List Orders
+    Route::get('/order/list', [OrderController::class, 'index'])->name('allOrders');
+    Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders']);
 
 // Stripe webhooks
 Route::post('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);
