@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/book-table',
-        '/add-card'
+        '/add-card',
+        'payment_intent_webhook'
     ];
 }

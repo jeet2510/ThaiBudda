@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Items;
 use App\Models\Orders;
 use Exception;
 use Illuminate\Http\Request;
@@ -46,28 +47,49 @@ class OrderController extends Controller
     public function create(Request $request)
     {
         try {
-            $lineItem = [
-                'price_data' => [
-                    'currency' => 'aud',
-                    'product_data' => [
-                        'name' => $request->get('name')
-                    ],
-                    'unit_aamount' => $request->get('price')
-                ],
-                'quantity' => 1
-            ];
+            // $lineItem = [
+            //     'price_data' => [
+            //         'currency' => 'aud',
+            //         'product_data' => [
+            //             'name' => $request->get('name')
+            //         ],
+            //         'unit_amount' => $request->get('price')
+            //     ],
+            //     'quantity' => 1
+            // ];
+
+            $user = auth()->user();
+            $item = Items::where('id', $request->get('item_id'))->first();
 
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET', ''));
-            $response = $stripe->checkout->sessions->create([
-                'line_items' => $lineItem,
-                'mode' => 'payment',
-                'success_url' => env('DOMAIN') . '/success',
-                'cancel_url' => env('DOMAIN') . '/cancel'
+            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET', ''));
+            $checkout_session = \Stripe\Checkout\Session::create([
+                'line_items'  => [
+                    [
+                        'price_data' => [
+                            'currency'     => 'aud',
+                            'product_data' => [
+                                'name' => $item->name
+                            ],
+                            'unit_amount'  => (int)($item->price) * 100
+                        ],
+                        'quantity'   => 1
+                    ],
+                ],
+                'metadata' => [
+                    'item_id' => $item->id,
+                    'user_id' => $user->id
+                ],
+                'mode'        => 'payment',
+                'success_url' => route('order.success'),
+                'cancel_url'  => route('order.cancel'),
             ]);
+            // dd('ok');
             // $checkout_session = \Stripe\Checkout\Session::create([
             // ]);
 
-
+            Log::info('checkout >> ' . json_encode($checkout_session));
+            return redirect()->away($checkout_session->url);
         } catch (Exception $e) {
             Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine() . $e->getFile()]);

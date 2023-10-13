@@ -570,7 +570,7 @@
                                         </p>
 
                                         <div>
-                                            <a href="{{ route('order.create'), $item->name }}">
+                                            <a href="order/create?item_id={{ $item->id }}">
                                                 <button>
                                                     Book a table
                                                 </button>

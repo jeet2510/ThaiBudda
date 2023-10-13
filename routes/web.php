@@ -53,18 +53,17 @@ Route::middleware('auth')->group(function () {
 
     Route::get('order/create', [OrderController::class, 'create'])->name('order.create');
     Route::post('add-card', [UserController::class, 'addCardDetails'])->name('card.add');
-    Route::post('success', [UserController::class, 'orderSuccess'])->name('order.success');
-    Route::post('cancel', [UserController::class, 'orderCancel'])->name('order.cancel');
-
+    Route::get('success', [UserController::class, 'orderSuccess'])->name('order.success');
+    Route::get('cancel', [UserController::class, 'orderCancel'])->name('order.cancel');
 });
-    // Orders
-    Route::post('/order/store', 'OrderController@store');
-    // List Orders
-    Route::get('/order/list', [OrderController::class, 'index'])->name('allOrders');
-    Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders']);
+// Orders
+Route::post('/order/store', 'OrderController@store');
+// List Orders
+Route::get('/order/list', [OrderController::class, 'index'])->name('allOrders');
+Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders']);
 
 // Stripe webhooks
-Route::post('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);
+Route::get('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);
 
 Route::post('/book-table', [HomePageController::class, 'bookTable'])->name('book-table');
 
