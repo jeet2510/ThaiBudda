@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders'])->name('user-orders');
 
 // Stripe webhooks
-Route::get('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);
+Route::post('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);
 
 Route::post('/book-table', [HomePageController::class, 'bookTable'])->name('book-table');
 

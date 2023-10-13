@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('order_status');
             $table->integer('user_id');
-            $table->integer('payment_id');
+            $table->text('payment_id');
             $table->text('service_detail');
             $table->text('payment_status');
             $table->integer('item_id');

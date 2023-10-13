@@ -156,14 +156,14 @@
                         </a>
                     </li>
                     <li class="navbar-item">
-                        <a href="#reservation" class="navbar-link hover-underline">
+                        <a href="{{ route('login') }}" class="navbar-link hover-underline">
                             <div class="separator"></div>
 
                             <span class="span">Login</span>
                         </a>
                     </li>
                     <li class="navbar-item">
-                        <a href="#reservation" class="navbar-link hover-underline">
+                        <a href="{{ route('register') }}" class="navbar-link hover-underline">
                             <div class="separator"></div>
 
                             <span class="span">Register</span>
@@ -569,10 +569,20 @@
                                             {{ $item->description }}
                                         </p>
 
-                                        <div>
-                                            <a href="order/create?item_id={{ $item->id }}">
+                                        <div class="">
+                                            <a href="order/create?item_id={{ $item->id }}&type=book_table">
                                                 <button>
                                                     Book a table
+                                                </button>
+                                            </a>
+                                            <a href="order/create?item_id={{ $item->id }}&type=pick_up">
+                                                <button>
+                                                    Pick Up
+                                                </button>
+                                            </a>
+                                            <a href="order/create?item_id={{ $item->id }}&type=pick_up">
+                                                <button>
+                                                    Home Delievery
                                                 </button>
                                             </a>
                                         </div>

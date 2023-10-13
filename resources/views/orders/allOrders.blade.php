@@ -42,7 +42,7 @@
                         @foreach($orders as $order)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $order->order_id }}
+                                {{ $order->id }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{ $order->order_status }}

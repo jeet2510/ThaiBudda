@@ -23,7 +23,16 @@ class OrderController extends Controller
 
     public function store($orderDetail)
     {
-        $order = Orders::create($orderDetail);
+        // dd($orderDetail);
+        $order = Orders::create([
+            'item_id' => $orderDetail->item_id,
+            'user_id' => $orderDetail->user_id,
+            'service_detail' => $orderDetail->service_detail,
+            'order_status' => $orderDetail->order_status,
+            'payment_status' => $orderDetail->payment_status,
+            'payment_id' => $orderDetail->payment_id,
+            'payment_amount' => $orderDetail->payment_amount
+        ]);
 
         return $order;
     }
@@ -43,16 +52,16 @@ class OrderController extends Controller
     public function create(Request $request)
     {
         try {
-
             $user = auth()->user();
             $item = Items::where('id', $request->get('item_id'))->first();
+            $type = $request->get('type');
 
             $orderDetails = new stdClass();
             $orderDetails->item_id = $item->id;
             $orderDetails->user_id = $user->id;
-            $orderDetails->service_detail = $request->get('status');
-            $orderDetails->order_status = 'placed';
-            $orderDetails->payment_status = 'unpaid';
+            $orderDetails->service_detail = $type;
+            $orderDetails->order_status = 'Placed';
+            $orderDetails->payment_status = 'Unpaid';
             $orderDetails->payment_id = 0;
             $orderDetails->payment_amount = $item->price;
             $order = $this->store($orderDetails);
@@ -80,7 +89,7 @@ class OrderController extends Controller
                     'user_id' => $user->id
                 ],
                 'mode'        => 'payment',
-                'success_url' => route('order.success', $order->id),
+                'success_url' => route('order.success'),
                 'cancel_url'  => route('order.cancel'),
             ]);
 
