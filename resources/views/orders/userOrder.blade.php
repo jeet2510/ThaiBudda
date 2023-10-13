@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ auth()->user()->name }}'s order
         </h2>
     </x-slot>
@@ -36,7 +36,7 @@
                         @foreach($orders as $order)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $order->order_id }}
+                                {{ $order->id }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{ $order->item_name }}

@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Items;
 use App\Models\Orders;
-use App\Models\Items;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use stdClass;
 
 class OrderController extends Controller
 {
@@ -21,27 +21,16 @@ class OrderController extends Controller
         return view('orders.allOrders', compact('orders'));
     }
 
-    public function store(Request $request)
+    public function store($orderDetail)
     {
-        $request->validate([
-            'order_id' => 'required|unique:orders',
-            'order_status' => 'required',
-            'user_id' => 'required|integer',
-            'payment_id' => 'required|integer',
-            'service_detail' => 'required',
-            'item_id' => 'required|integer',
-            'payment_amount' => 'required|numeric',
-        ]);
+        $order = Orders::create($orderDetail);
 
-        $order = Orders::create($request->all());
-
-        return response()->json(['message' => 'Order created successfully', 'data' => $order]);
+        return $order;
     }
 
     public function getUserOrders($userId)
     {
         $orders = Orders::where('user_id', $userId)
-            ->select('order_id', 'item_id', 'order_status', 'service_detail', 'payment_amount', 'payment_status')
             ->get();
 
         foreach ($orders as $order) {
@@ -54,19 +43,21 @@ class OrderController extends Controller
     public function create(Request $request)
     {
         try {
-            // $lineItem = [
-            //     'price_data' => [
-            //         'currency' => 'aud',
-            //         'product_data' => [
-            //             'name' => $request->get('name')
-            //         ],
-            //         'unit_amount' => $request->get('price')
-            //     ],
-            //     'quantity' => 1
-            // ];
 
             $user = auth()->user();
             $item = Items::where('id', $request->get('item_id'))->first();
+
+            $orderDetails = new stdClass();
+            $orderDetails->item_id = $item->id;
+            $orderDetails->user_id = $user->id;
+            $orderDetails->service_detail = $request->get('status');
+            $orderDetails->order_status = 'placed';
+            $orderDetails->payment_status = 'unpaid';
+            $orderDetails->payment_id = 0;
+            $orderDetails->payment_amount = $item->price;
+            $order = $this->store($orderDetails);
+
+            Log::info('orderDetails >> ' . json_encode($order));
 
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET', ''));
             \Stripe\Stripe::setApiKey(env('STRIPE_SECRET', ''));
@@ -84,16 +75,14 @@ class OrderController extends Controller
                     ],
                 ],
                 'metadata' => [
+                    'order_id' => $order->id,
                     'item_id' => $item->id,
                     'user_id' => $user->id
                 ],
                 'mode'        => 'payment',
-                'success_url' => route('order.success'),
+                'success_url' => route('order.success', $order->id),
                 'cancel_url'  => route('order.cancel'),
             ]);
-            // dd('ok');
-            // $checkout_session = \Stripe\Checkout\Session::create([
-            // ]);
 
             Log::info('checkout >> ' . json_encode($checkout_session));
             return redirect()->away($checkout_session->url);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orders;
 use App\Models\UserPayments;
 use Exception;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $userId = auth()->user()->id;
-        return redirect('user-orders/'.$userId);
+        return redirect('user-orders/' . $userId);
     }
 
     public function addCardDetails(Request $request)
@@ -125,7 +126,13 @@ class UserController extends Controller
 
     public function orderSuccess()
     {
-        dd('success');
+        try {
+            // $order = Orders::where('id', $id)->first();
+            return view('orders.success');
+        } catch (Exception $e) {
+            Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+        }
     }
 
     public function orderCancel()

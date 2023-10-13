@@ -33,32 +33,16 @@ class StripeController extends Controller
             Log::info(env('STRIPE_WEBHOOK_SECRET'));
 
             switch ($event->type) {
-                case 'payment_intent.created':
+                case 'checkout.session.completed':
                     $paymentIntent = $event->data->object;
-
-                    Log::info('pay-details' . '>>>' . json_encode($paymentIntent));
-
-                case 'payment_intent.amount_capturable_updated':
+                case 'checkout.session.completed':
                     $paymentIntent = $event->data->object;
-
-
-                case 'payment_intent.canceled':
+                case 'checkout.session.async_payment_succeeded':
                     $paymentIntent = $event->data->object;
-                case 'payment_intent.partially_funded':
+                case 'checkout.session.async_payment_failed':
                     $paymentIntent = $event->data->object;
-                case 'payment_intent.payment_failed':
+                case 'checkout.session.expired':
                     $paymentIntent = $event->data->object;
-                case 'payment_intent.processing':
-                    $paymentIntent = $event->data->object;
-
-                case 'payment_intent.requires_action':
-                    $paymentIntent = $event->data->object;
-
-                case 'payment_intent.succeeded':
-                    Log::info(json_encode($paymentIntent) . ' >> Success');
-                    $paymentIntent = $event->data->object;
-
-                    // ... handle other event types
                 default:
                     echo 'Received unknown event type ' . $event->type;
             }
