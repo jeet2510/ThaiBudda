@@ -9,7 +9,7 @@ class MenuItemController extends Controller
 {
     public function index(){
         $items = Items::select('name', 'price', 'description', 'image', 'tag')->get();
-
+        // dd($items);
         return view('foodcategory', compact('items'));
     }
 }
