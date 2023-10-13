@@ -12,7 +12,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('users.dashboard');
+        $userId = auth()->user()->id;
+        return redirect('user-orders/'.$userId);
     }
 
     public function addCardDetails(Request $request)

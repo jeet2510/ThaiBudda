@@ -56,11 +56,11 @@ Route::middleware('auth')->group(function () {
     Route::get('success', [UserController::class, 'orderSuccess'])->name('order.success');
     Route::get('cancel', [UserController::class, 'orderCancel'])->name('order.cancel');
 });
-// Orders
-Route::post('/order/store', 'OrderController@store');
-// List Orders
-Route::get('/order/list', [OrderController::class, 'index'])->name('allOrders');
-Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders']);
+    // Orders
+    Route::post('/order/store', 'OrderController@store');
+    // List Orders
+    Route::get('/order/list', [OrderController::class, 'index'])->name('allOrders');
+    Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders'])->name('user-orders');
 
 // Stripe webhooks
 Route::get('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);

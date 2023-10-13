@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Items;
 use App\Models\Orders;
+use App\Models\Items;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -13,8 +14,10 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Orders::all();
-        // dd($orders);
-
+        foreach ($orders as $order) {
+            $item = Items::where('id', $order->item_id)->first();
+            $order->item_name = $item->name;
+        }
         return view('orders.allOrders', compact('orders'));
     }
 
@@ -31,7 +34,6 @@ class OrderController extends Controller
         ]);
 
         $order = Orders::create($request->all());
-        dd($order);
 
         return response()->json(['message' => 'Order created successfully', 'data' => $order]);
     }
@@ -39,8 +41,13 @@ class OrderController extends Controller
     public function getUserOrders($userId)
     {
         $orders = Orders::where('user_id', $userId)
-            ->select('item_id', 'order_status', 'service_detail', 'payment_amount', 'payment_status')
+            ->select('order_id', 'item_id', 'order_status', 'service_detail', 'payment_amount', 'payment_status')
             ->get();
+
+        foreach ($orders as $order) {
+            $item = Items::where('id', $order->item_id)->first();
+            $order->item_name = $item->name;
+        }
         return view('orders.userOrder', compact('orders'));
     }
 
