@@ -49,7 +49,12 @@ class HomePageController extends Controller
             $user->message = $request->message;
 
             Log::info('Email > ' . json_encode($user));
-            $bookTable = ModelsBookTable::create(['email' => $request->email_address]);
+
+            $bookTable = ModelsBookTable::where('email', $request->email_address)->first();
+
+            if (!isset($bookTable->email)) {
+                $bookTable = ModelsBookTable::create(['email' => $request->email_address]);
+            }
             $admin = User::where('isAdmin', 1)->first();
 
             $bookTable->notify(new BookTable($user));
