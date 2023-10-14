@@ -155,20 +155,32 @@
                             <span class="span">Contact</span>
                         </a>
                     </li>
-                    <li class="navbar-item">
-                        <a href="{{ route('login') }}" class="navbar-link hover-underline">
-                            <div class="separator"></div>
 
-                            <span class="span">Login</span>
-                        </a>
-                    </li>
-                    <li class="navbar-item">
-                        <a href="{{ route('register') }}" class="navbar-link hover-underline">
-                            <div class="separator"></div>
-
-                            <span class="span">Register</span>
-                        </a>
-                    </li>
+                    @if (isset(auth()->user()->name))
+                        <li class="navbar-item">
+                            <div class="navbar-link hover-underline dropdown">
+                                {{-- <div class="separator"></div> --}}
+                                <button class="span dropbtn">{{ Str::upper(auth()->user()->name) }}</button>
+                                <div class="dropdown-content">
+                                    <a href="{{ route('profile.edit') }}">Profile</a>
+                                    <a href="{{ route('logout') }}">Logout</a>
+                                </div>
+                            </div>
+                        </li>
+                    @else
+                        <li class="navbar-item">
+                            <a href="{{ route('login') }}" class="navbar-link hover-underline">
+                                <div class="separator"></div>
+                                <span class="span">Login</span>
+                            </a>
+                        </li>
+                        <li class="navbar-item">
+                            <a href="{{ route('register') }}" class="navbar-link hover-underline">
+                                <div class="separator"></div>
+                                <span class="span">Register</span>
+                            </a>
+                        </li>
+                    @endif
 
                 </ul>
 
@@ -803,7 +815,7 @@
 
                     <div class="form reservation-form bg-black-10">
 
-                        <form action="" class="form-left">
+                        <form action="{{ route('book-table') }}"method=POST class="form-left">
 
                             <h2 class="headline-1 text-center">Online Reservation</h2>
 
@@ -817,6 +829,8 @@
                                     class="input-field">
 
                                 <input type="tel" name="phone" placeholder="Phone Number" autocomplete="off"
+                                    class="input-field">
+                                <input type="email" name="email_address" placeholder="Email Address" autocomplete="off"
                                     class="input-field">
                             </div>
 
@@ -849,7 +863,7 @@
                                 <div class="icon-wrapper">
                                     <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
 
-                                    <select name="person" class="input-field">
+                                    <select name="time" class="input-field">
                                         <option value="08:00am">08 : 00 am</option>
                                         <option value="09:00am">09 : 00 am</option>
                                         <option value="010:00am">10 : 00 am</option>

@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookTable as ModelsBookTable;
 use App\Models\Items;
+use App\Models\User;
 use App\Notifications\BookTable;
+use App\Notifications\BookTableAdmin;
 use Exception;
 use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use stdClass;
 
@@ -42,13 +46,18 @@ class HomePageController extends Controller
             $user->reservation_date = $request->get('reservation-date');
             $user->person = $request->person;
             $user->time = $request->time;
+            $user->message = $request->message;
 
-            Notification::route('mail', $request->email_address)
-                ->notify(new BookTable($user));
-            return view('welcome');
+            Log::info('Email > ' . json_encode($user));
+            $bookTable = ModelsBookTable::create(['email' => $request->email_address]);
+            $admin = User::where('isAdmin', 1)->first();
+
+            $bookTable->notify(new BookTable($user));
+            $admin->notify(new BookTableAdmin($user));
+            return redirect()->route('welcome');
         } catch (Exception $e) {
             Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
-            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine()]);
+            return redirect()->back();
         }
     }
 }

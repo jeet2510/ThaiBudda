@@ -4,21 +4,19 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Mail\UserRegisterMailable;
 
-class BookTable extends Notification
+class BookTableAdmin extends Notification
 {
     use Queueable;
-    public $user;
+    protected $details;
     /**
      * Create a new notification instance.
      */
-    public function __construct($user)
+    public function __construct($details)
     {
-        $this->user = $user;
+        $this->details = $details;
     }
 
     /**
@@ -37,8 +35,15 @@ class BookTable extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('Your request to book a table has been successfully sent to the owner. You will be notified shortly.')
-            ->line('Thank you for using our application!');
+            ->subject('Book table request')
+            ->line('Book Table Request details')
+            ->line('Name: ' . $this->details->name)
+            ->line('Phone: ' . $this->details->phone)
+            ->line('Email: ' . $this->details->email)
+            ->line('Person: ' . $this->details->person)
+            ->line('Date: ' . $this->details->reservation_date)
+            ->line('Time: ' . $this->details->time)
+            ->line('Message: ' . $this->details->message);
     }
 
     /**

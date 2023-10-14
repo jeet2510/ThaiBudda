@@ -100,4 +100,18 @@ class OrderController extends Controller
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine() . $e->getFile()]);
         }
     }
+
+    public function changeOrderStatus($id, Request $request)
+    {
+        try {
+            $updateOrder = Orders::where('id', $id)->update([
+                'order_status' => $request->orderStatus
+            ]);
+
+            return redirect()->route('allOrders');
+        } catch (Exception $e) {
+            Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
+            return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine() . $e->getFile()]);
+        }
+    }
 }

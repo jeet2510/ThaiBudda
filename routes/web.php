@@ -48,8 +48,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/edit-product/{item}', [ProductController::class, 'edit'])->name('items.edit');
     Route::put('/items/{item}', [ProductController::class, 'update'])->name('items.update');
-    Route::get('/items/{item}', 'ItemController@show')->name('items.show');
-    Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
+    // Route::get('/items/{item}', 'ItemController@show')->name('items.show');
+    Route::get('/items/{id}', [ProductController::class, 'destroy'])->name('items.destroy');
 
     Route::get('order/create', [OrderController::class, 'create'])->name('order.create');
     Route::post('add-card', [UserController::class, 'addCardDetails'])->name('card.add');
@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/store', 'OrderController@store');
     // List Orders
     Route::get('/order/list', [OrderController::class, 'index'])->name('allOrders');
+    Route::post('/order/status/{id}', [OrderController::class, 'changeOrderStatus'])->name('order.status');
     Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders'])->name('user-orders');
 
 // Stripe webhooks

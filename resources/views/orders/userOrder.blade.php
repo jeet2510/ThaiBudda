@@ -48,7 +48,7 @@
                                 {{ $order->service_detail }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $order->payment_amount }}
+                                ${{ $order->payment_amount }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 {{ $order->payment_status }}

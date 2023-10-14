@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Items;
 use App\Models\Orders;
 use App\Models\TransactionHistory;
 use App\Models\User;
+use App\Notifications\OrderConfirmation;
+use App\Notifications\OrderConfirmationUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class StripeController extends Controller
@@ -44,6 +48,18 @@ class StripeController extends Controller
                             'payment_id' => $paymentIntent->payment_intent,
                             'payment_status' => Str::ucfirst($paymentIntent->payment_status)
                         ]);
+
+                        $user = User::where('id', $orderDetails->user_id)->first();
+                        $admin = User::where('isAdmin', 1)->first();
+
+                        $order = Orders::where('id', $orderDetails->order_id)->first();
+                        $item = Items::where('id', $orderDetails->item_id)->first();
+                        $user->notify(new OrderConfirmationUser($user, $order, $item));
+                        $admin->notify(new OrderConfirmation($user, $order, $item));
+                        // Notification::sendNow($user->email, );
+                        // Notification::route('mail', $user->email)
+                        //     ->notify(new OrderConfirmationUser($user, $order, $item));
+                        // Notification::route()->sendNow($admin->email, new OrderConfirmation($user, $order, $item));
                     }
                     Log::info('completed >> ' . json_encode($paymentIntent));
                     break;

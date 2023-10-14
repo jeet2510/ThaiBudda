@@ -42,12 +42,11 @@
                                             <a href="/edit-product/{{ $item->id }}"><button
                                                     class="border p-1.5 rounded-lg hover:bg-indigo-200"><img
                                                         src="Icons/edit.svg" alt=""></button></a>
-                                            <form id="deleteform" action="deleteProduct/{{ $item->id }}"
-                                                method="POST">
-                                                @csrf</form>
-                                            <button class="w-10 border p-1.5 rounded-lg hover:bg-red-400/40"
-                                                onclick="deleteProduct({{ $item->id }})"><img src="Icons/delete.svg"
-                                                    alt="" /></button>
+                                            <a href="{{ route('items.destroy', $item->id) }}">
+                                                <button class="w-10 border p-1.5 rounded-lg hover:bg-red-400/40"
+                                                    onclick="deleteProduct({{ $item->id }})"><img
+                                                        src="Icons/delete.svg" alt="" /></button>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
