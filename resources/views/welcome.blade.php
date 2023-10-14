@@ -163,7 +163,10 @@
                                 <button class="span dropbtn">{{ Str::upper(auth()->user()->name) }}</button>
                                 <div class="dropdown-content">
                                     <a href="{{ route('profile.edit') }}">Profile</a>
-                                    <a href="{{ route('logout') }}">Logout</a>
+                                    <form method="post" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a onclick="this.parentNode.submit();" class="cursor-pointer">Logout</a>
+                                    </form>
                                 </div>
                             </div>
                         </li>
@@ -830,8 +833,8 @@
 
                                 <input type="tel" name="phone" placeholder="Phone Number" autocomplete="off"
                                     class="input-field">
-                                <input type="email" name="email_address" placeholder="Email Address" autocomplete="off"
-                                    class="input-field">
+                                <input type="email" name="email_address" placeholder="Email Address"
+                                    autocomplete="off" class="input-field">
                             </div>
 
                             <div class="input-wrapper">
