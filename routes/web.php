@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/store', 'OrderController@store');
     // List Orders
     Route::get('/order/list', [OrderController::class, 'index'])->name('allOrders');
+    Route::get('/order/filter', [OrderController::class, 'orderFilter'])->name('filterOrders');
     Route::post('/order/status/{id}', [OrderController::class, 'changeOrderStatus'])->name('order.status');
     Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders'])->name('user-orders');
 

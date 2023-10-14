@@ -562,7 +562,7 @@
                     <ul class="grid-list">
 
                         @foreach ($items as $item)
-                            <li>
+                            <li class="cardHover">
                                 <div class="menu-card hover:card">
                                     <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
                                         <img src="{{ asset('storage' . $item->image) }}" width="100"
@@ -584,22 +584,13 @@
                                             {{ $item->description }}
                                         </p>
 
-                                        <div class="">
+                                        <div class="cardButtons">
                                             <a href="order/create?item_id={{ $item->id }}&type=book_table">
-                                                <button>
-                                                    Book a table
-                                                </button>
-                                            </a>
+                                            <button class="demoBtn">Book a Table</button>                          </a>
                                             <a href="order/create?item_id={{ $item->id }}&type=pick_up">
-                                                <button>
-                                                    Pick Up
-                                                </button>
-                                            </a>
+                                            <button class="demoBtn">Pick Up</button>                      </a>
                                             <a href="order/create?item_id={{ $item->id }}&type=pick_up">
-                                                <button>
-                                                    Home Delievery
-                                                </button>
-                                            </a>
+                                            <button class="demoBtn">Home Delivery</button>                        </a>
                                         </div>
 
                                     </div>

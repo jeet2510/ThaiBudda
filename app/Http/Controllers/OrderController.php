@@ -13,7 +13,9 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Orders::all();
+        $orders = Orders::whereDate('created_at', '>=', now()->subDays(7))
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(20);
         foreach ($orders as $order) {
             $item = Items::where('id', $order->item_id)->first();
             $order->item_name = $item->name;
@@ -40,7 +42,8 @@ class OrderController extends Controller
     public function getUserOrders($userId)
     {
         $orders = Orders::where('user_id', $userId)
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         foreach ($orders as $order) {
             $item = Items::where('id', $order->item_id)->first();
@@ -113,5 +116,31 @@ class OrderController extends Controller
             Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
             return response()->json(['error' => $e->getMessage() . ' ' . $e->getLine() . $e->getFile()]);
         }
+    }
+
+    public function orderFilter(Request $request){
+        // $orders = Orders::whereDate('created_at', '>=', now()->subDays(7))
+        //                     ->orderBy('created_at', 'desc')
+        //                     ->paginate(20);
+
+
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+    
+        if ($fromDate && $toDate) {
+            $orders = Orders::whereBetween('created_at', [$fromDate, $toDate])
+                ->paginate(5);
+        } else {
+            $orders = Orders::whereDate('created_at', '>=', now()->subDays(7))
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        }
+    
+             
+        foreach ($orders as $order) {
+            $item = Items::where('id', $order->item_id)->first();
+            $order->item_name = $item->name;
+        }
+        return view('orders.filterOrders', ['fromDate' => $fromDate, 'toDate' => $toDate, 'orders'=>$orders]);
     }
 }

@@ -10,7 +10,9 @@
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <div class="flex justify-between items-center mb-4">
             <div>
-                <h1 class="text-2xl font-bold">Order List Of Last 7 Days</h1>
+            <h1 class="text-2xl font-bold">
+                    Order List From {{ \Carbon\Carbon::parse($fromDate)->format('Y-m-d') }} to {{ \Carbon\Carbon::parse($toDate)->format('Y-m-d') }}
+                </h1>
             </div>
             <div class="flex gap-4">
                 <form action="{{route('filterOrders')}}" method="GET" class="flex gap-2">

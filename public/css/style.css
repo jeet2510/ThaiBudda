@@ -2543,3 +2543,28 @@ textarea.input-field {
 .cursor-pointer {
     cursor: pointer;
 }
+
+.cardHover:hover .demoBtn{
+    background-color: #333233;
+    padding: 2px 6px;
+    border-radius: 12px;
+    display: block;
+}
+
+.cardButtons{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: end;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.demoBtn{
+  background-color: aliceblue;
+  color: aliceblue;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 1%;
+  display: none;
+}
