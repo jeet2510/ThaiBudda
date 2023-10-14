@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookTable as ModelsBookTable;
 use App\Models\Items;
+use App\Models\Subscriber;
 use App\Models\User;
 use App\Notifications\BookTable;
 use App\Notifications\BookTableAdmin;
@@ -36,8 +37,6 @@ class HomePageController extends Controller
     public function bookTable(Request $request)
     {
         try {
-            // dd($request->name . ' ' . $request->phone . ' ' . $request->email_address . ' ' . $request->get('reservation-date') . ' Pr >>' . $request->get('person') . ' -- ' . $request->time);
-
             $user = new stdClass();
 
             $user->name = $request->name;
@@ -60,6 +59,23 @@ class HomePageController extends Controller
             $bookTable->notify(new BookTable($user));
             $admin->notify(new BookTableAdmin($user));
             return redirect()->route('welcome');
+        } catch (Exception $e) {
+            Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
+            return redirect()->back();
+        }
+    }
+
+    public function subscribe(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required|email|unique:subscribers',
+            ]);
+            Subscriber::create([
+                'email' => $request->input('email'),
+            ]);
+
+            return redirect('/')->with('Success','Thank you For Suscribing our services!');
         } catch (Exception $e) {
             Log::error($e->getMessage() . ' ' . $e->getLine() . ' ' . $e->getFile());
             return redirect()->back();

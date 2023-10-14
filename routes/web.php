@@ -25,13 +25,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePageController::class, 'welcome'])->name('welcome');
 Route::get('/itemlist', [MenuItemController::class, 'index'])->name('itemlist');
-Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
-
+Route::post('/subscribe', [HomePageController::class, 'subscribe'])->name('subscribe');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -48,14 +48,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/edit-product/{item}', [ProductController::class, 'edit'])->name('items.edit');
     Route::put('/items/{item}', [ProductController::class, 'update'])->name('items.update');
-    // Route::get('/items/{item}', 'ItemController@show')->name('items.show');
     Route::get('/items/{id}', [ProductController::class, 'destroy'])->name('items.destroy');
 
     Route::get('order/create', [OrderController::class, 'create'])->name('order.create');
     Route::post('add-card', [UserController::class, 'addCardDetails'])->name('card.add');
     Route::get('success', [UserController::class, 'orderSuccess'])->name('order.success');
     Route::get('cancel', [UserController::class, 'orderCancel'])->name('order.cancel');
-});
     // Orders
     Route::post('/order/store', 'OrderController@store');
     // List Orders
@@ -64,9 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/status/{id}', [OrderController::class, 'changeOrderStatus'])->name('order.status');
     Route::get('/user-orders/{userId}', [OrderController::class, 'getUserOrders'])->name('user-orders');
 
-// Stripe webhooks
+});
 Route::post('payment_intent_webhook', [StripeController::class, 'paymentIntentsWebhook']);
-
 Route::post('/book-table', [HomePageController::class, 'bookTable'])->name('book-table');
 
 require __DIR__ . '/auth.php';

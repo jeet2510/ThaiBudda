@@ -134,7 +134,7 @@
                         <a href="#home" class="navbar-link hover-underline active">
                             <div class="separator"></div>
 
-                            <span class="span">Dashboard</span>
+                            <span class="span">Home</span>
                         </a>
                     </li>
 
@@ -572,7 +572,7 @@
                                     <div>
                                         <div class="title-wrapper">
                                             <h3 class="title-3">
-                                                <a href="#" class="card-title">{{ $item->name }}</a>
+                                                {{ $item->name }}
                                             </h3>
 
                                             <span class="badge label-1">{{ $item->tag }}</span>
@@ -1157,11 +1157,12 @@
                                 Subscribe us & Get <span class="span">25% Off.</span>
                             </p>
 
-                            <form action="" class="input-wrapper">
+                            <form action="{{route('subscribe')}}" class="input-wrapper" method="POST">
+                              @csrf
                                 <div class="icon-wrapper">
                                     <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
 
-                                    <input type="email" name="email_address" placeholder="Your email"
+                                    <input type="email" name="email" placeholder="Your email"
                                         autocomplete="off" class="input-field">
                                 </div>
 

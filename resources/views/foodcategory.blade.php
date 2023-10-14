@@ -12,7 +12,7 @@
   <title>ThaiBudda</title>
   <meta name="title" content="ThaiBudda - The Orderman">
   <meta name="description" content="ThaiBudda restaurant website">
-  
+
   <!-- 
     - favicon
   -->
@@ -28,7 +28,7 @@
   <!-- 
     - custom css link
   -->
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/menustyle.css">
 
   <!-- 
     - preload images
@@ -127,7 +127,7 @@
           <img src="./images/ThaiBudda.jpg" width="100" height="100" alt="Grilli - Home">
         </a>
 
-        <!-- <ul class="navbar-list">
+        <ul class="navbar-list">
 
           <li class="navbar-item">
             <a href="/" class="navbar-link hover-underline active">
@@ -154,8 +154,35 @@
               <span class="span">Contact</span>
             </a>
           </li>
-
-        </ul> -->
+          @if (isset(auth()->user()->name))
+                        <li class="navbar-item">
+                            <div class="navbar-link hover-underline dropdown">
+                                {{-- <div class="separator"></div> --}}
+                                <button class="span dropbtn">{{ Str::upper(auth()->user()->name) }}</button>
+                                <div class="dropdown-content">
+                                    <a href="{{ route('profile.edit') }}">Profile</a>
+                                    <form method="post" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a onclick="this.parentNode.submit();" class="cursor-pointer">Logout</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    @else
+                        <li class="navbar-item">
+                            <a href="{{ route('login') }}" class="navbar-link hover-underline">
+                                <div class="separator"></div>
+                                <span class="span">Login</span>
+                            </a>
+                        </li>
+                        <li class="navbar-item">
+                            <a href="{{ route('register') }}" class="navbar-link hover-underline">
+                                <div class="separator"></div>
+                                <span class="span">Register</span>
+                            </a>
+                        </li>
+                    @endif
+        </ul>
 
         <div class="text-center">
           <p class="headline-1 navbar-title">Visit Us</p>
@@ -423,306 +450,43 @@
 
           <ul class="grid-list">
 
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-1.png" width="100" height="100" loading="lazy" alt="Greek Salad"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Greek Salad</a>
-                    </h3>
-
-                    <span class="badge label-1">Seasonal</span>
-
-                    <span class="span title-2">$25.50</span>
-                  </div>
-
-                  <p class="card-text label-1">
-                    Tomatoes, green bell pepper, sliced cucumber onion, olives, and feta cheese.
-                  </p>
-
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-2.png" width="100" height="100" loading="lazy" alt="Lasagne"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Lasagne</a>
-                    </h3>
-
-                    <span class="span title-2">$40.00</span>
-                  </div>
-
-                  <p class="card-text label-1">
-                    Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
-                  </p>
-
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-3.png" width="100" height="100" loading="lazy" alt="Butternut Pumpkin"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Butternut Pumpkin</a>
-                    </h3>
-
-                    <span class="span title-2">$10.00</span>
-                  </div>
-
-                  <p class="card-text label-1">
-                    Typesetting industry lorem Lorem Ipsum is simply dummy text of the priand.
-                  </p>
-
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-4.png" width="100" height="100" loading="lazy" alt="Tokusen Wagyu"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Tokusen Wagyu</a>
-                    </h3>
-
-                    <span class="badge label-1">New</span>
-
-                    <span class="span title-2">$39.00</span>
-                  </div>
-
-                  <p class="card-text label-1">
-                    Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices.
-                  </p>
-
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-5.png" width="100" height="100" loading="lazy" alt="Olivas Rellenas"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Olivas Rellenas</a>
-                    </h3>
-
-                    <span class="span title-2">$25.00</span>
-                  </div>
-
-                  <p class="card-text label-1">
-                    Avocados with crab meat, red onion, crab salad stuffed red bell pepper and green bell pepper.
-                  </p>
-
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-6.png" width="100" height="100" loading="lazy" alt="Opu Fish"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Opu Fish</a>
-                    </h3>
-
-                    <span class="span title-2">$49.00</span>
-                  </div>
-                  <p class="card-text label-1">
-                    Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-6.png" width="100" height="100" loading="lazy" alt="Opu Fish"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Opu Fish</a>
-                    </h3>
-
-                    <span class="span title-2">$49.00</span>
-                  </div>
-                  <p class="card-text label-1">
-                    Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-6.png" width="100" height="100" loading="lazy" alt="Opu Fish"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Opu Fish</a>
-                    </h3>
-
-                    <span class="span title-2">$49.00</span>
-                  </div>
-                  <p class="card-text label-1">
-                    Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-6.png" width="100" height="100" loading="lazy" alt="Opu Fish"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Opu Fish</a>
-                    </h3>
-
-                    <span class="span title-2">$49.00</span>
-                  </div>
-                  <p class="card-text label-1">
-                    Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-6.png" width="100" height="100" loading="lazy" alt="Opu Fish"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Opu Fish</a>
-                    </h3>
-
-                    <span class="span title-2">$49.00</span>
-                  </div>
-                  <p class="card-text label-1">
-                    Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-6.png" width="100" height="100" loading="lazy" alt="Opu Fish"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Opu Fish</a>
-                    </h3>
-
-                    <span class="span title-2">$49.00</span>
-                  </div>
-                  <p class="card-text label-1">
-                    Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="menu-card hover:card">
-
-                <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
-                  <img src="./images/menu-6.png" width="100" height="100" loading="lazy" alt="Opu Fish"
-                    class="img-cover">
-                </figure>
-
-                <div>
-
-                  <div class="title-wrapper">
-                    <h3 class="title-3">
-                      <a href="#" class="card-title">Opu Fish</a>
-                    </h3>
-
-                    <span class="span title-2">$49.00</span>
-                  </div>
-                  <p class="card-text label-1">
-                    Vegetables, cheeses, ground meats, tomato sauce, seasonings and spices
-                  </p>
-                </div>
-              </div>
-            </li>
+          @foreach ($items as $item)
+                            <li class="cardHover">
+                                <div class="menu-card hover:card">
+                                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                                        <img src="{{ asset('storage' . $item->image) }}" width="100"
+                                            height="100" loading="lazy" alt="{{ $item->name }}" class="">
+                                    </figure>
+
+                                    <div>
+                                        <div class="title-wrapper">
+                                            <h3 class="title-3">
+                                                {{ $item->name }}
+                                            </h3>
+
+                                            <span class="badge label-1">{{ $item->tag }}</span>
+
+                                            <span class="span title-2">${{ $item->price }}</span>
+                                        </div>
+
+                                        <p class="card-text label-1">
+                                            {{ $item->description }}
+                                        </p>
+
+                                        <div class="cardButtons">
+                                            <a href="order/create?item_id={{ $item->id }}&type=book_table">
+                                            <button class="demoBtn">Book a Table</button>                          </a>
+                                            <a href="order/create?item_id={{ $item->id }}&type=pick_up">
+                                            <button class="demoBtn">Pick Up</button>                      </a>
+                                            <a href="order/create?item_id={{ $item->id }}&type=pick_up">
+                                            <button class="demoBtn">Home Delivery</button>                        </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+            
             <li>
               <div class="menu-card hover:card">
 
@@ -783,7 +547,7 @@
     - #FOOTER
   -->
   <footer class="footer section has-bg-image text-center"
-    style="background-image: url('./assets/images/footer-bg.jpg')">
+    style="background-image: url('./images/footer-bg.jpg')">
     <div class="container">
 
       <div class="footer-top grid-list">
@@ -818,11 +582,12 @@
             Subscribe us & Get <span class="span">25% Off.</span>
           </p>
 
-          <form action="" class="input-wrapper">
+          <form action="{{route('subscribe')}}" class="input-wrapper">
+            @csrf
             <div class="icon-wrapper">
               <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
 
-              <input type="email" name="email_address" placeholder="Your email" autocomplete="off" class="input-field">
+              <input type="email" name="email" placeholder="Your email" autocomplete="off" class="input-field">
             </div>
 
             <button type="submit" class="btn btn-secondary">
