@@ -41,7 +41,7 @@ class OrderConfirmation extends Notification
     {
         return (new MailMessage)
             ->subject("Order Received")
-            ->greeting("Hello " . $this->user->name . "!")
+            ->greeting("Hello Admin !")
             ->line('You just received an order!')
             ->line('Order Details')
             ->line('Order Id: ' . $this->order->id)
