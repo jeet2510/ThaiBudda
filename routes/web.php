@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/category-add', [CategoryController::class, 'addCatogory'])->name('category.add');
     Route::post('/category-add', [CategoryController::class, 'store'])->name('category.store');
 
-    Route::get('/products', [ProductController::class, 'index'])->name('items.listtt');
+    Route::get('/products', [ProductController::class, 'index'])->name('items.list');
     Route::get('/product-add', [ProductController::class, 'addItem'])->name('items.add');
     Route::post('/product-add', [ProductController::class, 'store'])->name('items.store');
 
